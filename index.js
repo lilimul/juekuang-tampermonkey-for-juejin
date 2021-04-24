@@ -599,5 +599,17 @@
     }
     `;
     const headDOM = document.getElementsByTagName('head')[0];
-    headDOM.append(styleDOM);
+    const useTheme= localStorage.getItem("juekuang-theme-enable");
+    useTheme!='false'&&headDOM.append(styleDOM);
+    function initSettingBtn(){
+        let btnTemplate = document.querySelectorAll('.nav-menu-item')[0];
+        let settingBtn = btnTemplate.cloneNode(true);
+        settingBtn.getElementsByTagName('span')[0].innerText='切换主题';
+        settingBtn.onclick=()=>{
+            const useTheme= localStorage.getItem("juekuang-theme-enable");
+            useTheme!="true"?localStorage.setItem("juekuang-theme-enable","true"):localStorage.setItem("juekuang-theme-enable","false");
+        }
+        document.querySelectorAll('.nav-menu-item-group')[3].append(settingBtn);
+        }
+    setTimeout(initSettingBtn,2000);
 })();
