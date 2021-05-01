@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         juekuang
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  try to take over the world!
+// @name         掘矿-让掘金之旅更愉快
+// @namespace    https://github.com/jhonleeee
+// @version      0.1.1
+// @description  给掘金增加暗黑模式以及一些小功能
 // @author       JhonLee
 // @match        https://juejin.cn/*
 // @icon         https://b-gold-cdn.xitu.io/favicons/v2/favicon.ico
