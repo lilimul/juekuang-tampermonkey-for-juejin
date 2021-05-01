@@ -9,6 +9,38 @@
 // @grant        none
 // ==/UserScript==
 
+async function addCountInUserPage(){
+    const windowURL = window?.location.pathname;
+    let userInfoAPI = new URL(`https://api.juejin.cn/user_api/v1/user/get`);
+    const urlMatch = windowURL.match(/\/user\/(\d+)/);
+    if(!windowURL&&!urlMatch){
+        return false;
+    }
+    const uId = urlMatch[1];
+    userInfoAPI.searchParams.set('aid',114514);
+    userInfoAPI.searchParams.set('user_id',uId);
+    function addCountToPage(writeCount,shortMsgCount){
+        const writeDOM = document.createElement('div');
+        writeDOM.className='item-count';
+        writeDOM.innerHTML=writeCount;
+        const shortMsgDOM = writeDOM.cloneNode()
+        shortMsgDOM.innerHTML = shortMsgCount
+        const headerItemArr = document.querySelectorAll('.header-content')[0].querySelectorAll('.item-title')
+        headerItemArr[1].after(writeDOM)
+        headerItemArr[2].after(shortMsgDOM)
+    }
+    await fetch(userInfoAPI,{
+        credentials: "include"
+    }).then(
+        res=>res.json()
+    ).then(
+        resJson=>{
+            addCountToPage(resJson.data.post_article_count,resJson.data.post_shortmsg_count)
+        }
+    ).catch(
+        err=>console.log(err)
+    )
+}
 (function() {
     'use strict';
     // Your code here...
@@ -378,6 +410,12 @@
 
 
     /* ./user/** */
+    .list-header .nav-item .item-count {
+        margin-left: .4rem;
+        font-size: 1.25rem;
+        color: #b2bac2;
+        line-height: 1;
+    }
     .main-container .block {
         background-color: var(--color-bg-overlay-juejin-juekuang) !important;
     }
