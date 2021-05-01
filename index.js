@@ -649,5 +649,6 @@ async function addCountInUserPage(){
         }
         document.querySelectorAll('.nav-menu-item-group')[3].append(settingBtn);
         }
+    setTimeout(addCountInUserPage,1000);
     setTimeout(initSettingBtn,2000);
 })();
