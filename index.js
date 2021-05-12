@@ -35,7 +35,12 @@ async function addCountInUserPage(){
         res=>res.json()
     ).then(
         resJson=>{
-            addCountToPage(resJson.data.post_article_count,resJson.data.post_shortmsg_count)
+            try{
+                addCountToPage(resJson.data.post_article_count,resJson.data.post_shortmsg_count)
+            } catch{
+                setInterval(addCountToPage(resJson.data.post_article_count,resJson.data.post_shortmsg_count),2000)
+            }
+
         }
     ).catch(
         err=>console.log(err)
@@ -217,11 +222,23 @@ async function addCountInUserPage(){
         border-radius: 6px;
     }
 
-    .entry-list {
+    .entry-box .advertisement .main{
+        border-bottom-color: var(--color-border-primary-juejin-juekuang) !important;
+    }
+
+    .entry-list .user-popover-box{
+        color: var(--color-text-primary-juejin-juekuang) !important;
+    }
+
+    .entry-list,.content-box {
         background-color: var(--color-bg-tertiary-juejin-juekuang) !important;
     }
 
-    .entry-list .entry-box:hover {
+    .entry-list,.main-row .main-box .abstract a {
+        color: var(--color-text-tertiary-juejin-juekuang) !important;
+    }
+
+    .entry-list .entry-box:,.content-box:hover {
         background-color: var(--color-bg-canvas-juejin-juekuang) !important;
     }
     .entry-list .entry-title{
@@ -236,10 +253,13 @@ async function addCountInUserPage(){
         color: var(--color-text-primary-juejin-juekuang) !important;
     }
 
-    .entry-list .action-list>.item {
-        border: 1px solid var(--color-btn-border-juejin-juekuang) !important;
+    .entry-list .action-list>.item.share {
+        opacity:0;
+        transition-duration:0.5s;
     }
-
+    .entry-list .action-list>.item.share:hover {
+        opacity:1;
+    }
     .xitu-skeleton {
         background-color: var(--color-bg-tertiary-juejin-juekuang) !important;
     }
